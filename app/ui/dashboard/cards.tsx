@@ -14,38 +14,28 @@ const iconMap = {
   invoices: InboxIcon,
 };
 
-interface CardData {
-  totalPaidInvoices: string;
-  totalPendingInvoices: string;
-  numberOfInvoices: number;
-  numberOfCustomers: number;
-}
-
-interface CardWrapperProps {
-  cardData: CardData;
-}
-
-const CardWrapper: React.FC<CardWrapperProps> = ({
-  cardData: {
+export default async function CardWrapper() {
+  const {
     totalPaidInvoices,
     totalPendingInvoices,
     numberOfInvoices,
     numberOfCustomers,
-  },
-}) => (
-  <>
-    <Card title="Collected" value={totalPaidInvoices} type="collected" />
-    <Card title="Pending" value={totalPendingInvoices} type="pending" />
-    <Card title="Total Invoices" value={numberOfInvoices} type="invoices" />
-    <Card title="Total Customers" value={numberOfCustomers} type="customers" />
-  </>
-);
+  } = await fetchCardData();
+  return (
+    <>
+      {/* NOTE: Uncomment this code in Chapter 9 */}
 
-export default async function CardWrapperWrapper() {
-  const cardData = await fetchCardData();
-  return <CardWrapper cardData={cardData} />;
+      <Card title="Collected" value={totalPaidInvoices} type="collected" />
+      <Card title="Pending" value={totalPendingInvoices} type="pending" />
+      <Card title="Total Invoices" value={numberOfInvoices} type="invoices" />
+      <Card
+        title="Total Customers"
+        value={numberOfCustomers}
+        type="customers"
+      />
+    </>
+  );
 }
-
 
 export function Card({
   title,
