@@ -10,12 +10,12 @@ import { fetchRevenue } from '@/app/lib/data';
 // https://www.chartjs.org/
 // https://airbnb.io/visx/
 
-export default async function RevenueChart(){
-  const revenue = await fetchRevenue();
+interface RevenueChartProps {
+  revenue: Revenue[];
+}
 
+const RevenueChart: React.FC<RevenueChartProps> = ({ revenue }) => {
   const chartHeight = 350;
-  // NOTE: Uncomment this code in Chapter 7
-
   const { yAxisLabels, topLabel } = generateYAxis(revenue);
 
   if (!revenue || revenue.length === 0) {
@@ -27,8 +27,6 @@ export default async function RevenueChart(){
       <h2 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
         Recent Revenue
       </h2>
-      {/* NOTE: Uncomment this code in Chapter 7 */}
-
       <div className="rounded-xl bg-gray-50 p-4">
         <div className="sm:grid-cols-13 mt-0 grid grid-cols-12 items-end gap-2 rounded-md bg-white p-4 md:gap-4">
           <div
@@ -61,4 +59,10 @@ export default async function RevenueChart(){
       </div>
     </div>
   );
+};
+
+export default async function RevenueChartWrapper() {
+  const revenue = await fetchRevenue();
+  return <RevenueChart revenue={revenue} />;
 }
+
