@@ -113,6 +113,7 @@ export async function deleteInvoice(id: string) {
       WHERE id = ${id}
     `;
     revalidatePath('/dashboard/invoices');
+    revalidatePath('/dashboard');
     return { message: 'Deleted Invoice' };
   } catch (error) {
     return {
