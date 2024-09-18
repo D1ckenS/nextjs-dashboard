@@ -66,7 +66,7 @@ export async function createInvoice(prevState: State, formData: FormData) {
     };
   }
   
-  revalidatePaths(['/dashboard/invoices','/dashboard']);
+  revalidatePaths(['/dashboard/invoices']);
   redirect('/dashboard/invoices');
 
 }
@@ -105,7 +105,7 @@ export async function updateInvoice(id: string, prevState: State, formData: Form
     }
   }
     
-  revalidatePaths(['/dashboard/invoices','/dashboard']);
+  revalidatePaths(['/dashboard/invoices']);
   redirect('/dashboard/invoices');
 
 }
@@ -116,7 +116,7 @@ export async function deleteInvoice(id: string) {
       DELETE FROM invoices
       WHERE id = ${id}
     `;
-    revalidatePaths(['/dashboard/invoices','/dashboard']);
+    revalidatePaths(['/dashboard/invoices']);
     return { message: 'Deleted Invoice' };
   } catch (error) {
     return {
